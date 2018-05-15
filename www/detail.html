@@ -3,209 +3,180 @@
 <!-- iosの場合footerにボタンを置く? -->
 <!-- TOPに戻るボタン実装 -->
 
-<!DOCTYPE HTML>
-<html>
-
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
-
-	<link rel="stylesheet" href="components/loader.css">
-	<link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
-	<link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
-	<link rel="stylesheet" href="css/style2.css">
-	
-</head>
-
-<body ng-app="my-app">
-	<script src="components/loader.js"></script>
-	<script src="lib/angular/angular.min.js"></script>
-	<script src="lib/onsenui/js/onsenui.min.js"></script>
-	<script src="lib/onsenui/js/angular-onsenui.min.js"></script>
-	<script src="js/detail.js"></script>
-
-	<ons-navigator var="navi" page="detail.html"></ons-navigator>
-	<ons-template id='detail.html'>
-		<ons-page id="detail" ng-controller="PageController as Page">
-			<!-- Pull2Refresh 見かけだけなので要修正 -->
-			<!-- lazy-repeatの場合の使い方がよくわかっていない -->
-			<ons-pull-hook ng-action="page.load($done)" var="loader">
-				<span ng-switch="loader.state">
+<ons-page id="detail" ng-controller="PageController as Page">
+	<!-- Pull2Refresh 見かけだけなので要修正 -->
+	<!-- lazy-repeatの場合の使い方がよくわかっていない -->
+	<ons-pull-hook ng-action="page.load($done)" var="loader">
+		<span ng-switch="loader.state">
      			<span ng-switch-when="initial"><ons-icon size="35px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>
-				<span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>
-				<span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...</span>
-				</span>
-			</ons-pull-hook>
+		<span ng-switch-when="preaction"><ons-icon size="35px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>
+		<span ng-switch-when="action"><ons-icon size="35px" spin="true" icon="ion-load-d"></ons-icon> Loading data...</span>
+		</span>
+	</ons-pull-hook>
 
-			<ons-toolbar>
-				<div class="left">
-					<ons-back-button>Back</ons-back-button>
-				</div>
-				<div class="center">詳細</div>
-				<div class="right">
-					<ons-toolbar-button>
-						<ons-icon icon="ion-edit, material:md-edit" ng-click="toiletPush()"></ons-icon>
-					</ons-toolbar-button>
-				</div>
-			</ons-toolbar>
-			<ons-fab position="bottom right" modifier="mini">
-				<ons-icon icon="md-plus" ng-click="myModal.show()"></ons-icon>
-			</ons-fab>
-			<ons-card style="margin-right:auto">
-				<img src="img/test.jpg" alt="test" title="umeda" height="200dp">
-				<div class="title">
-					Place name
-				</div>
-				<hr>
-				<div class="content">
-					<table class="rating">
-						<tr>
-							<td class="right"><b>総合評価:</b></td>
-							<td>
-								<label ng-click="popover.show($event)">★★★★★</label>
-							</td>
-						</tr>
-						<tr>
-							<td class="right">営業時間:</td>
-							<td>24h</td>
-						</tr>
-						<tr>
-							<td class="right">休業日:</td>
-							<td>-</td>
-						</tr>
-						<tr>
-							<td class="right">清潔度:</td>
-							<td>梅田(姉)</td>
-						</tr>
-						<tr>
-							<td class="right">混雑度:</td>
-							<td>★★★★★</td>
-						</tr>
-					</table>
-
-					<table border="1" class="tabb">
-						<tr>
-							<td class="centertable">
-								<div>洋式</div>
-								<hr>
-								<div>{{checkD}}</div>
-							</td>
-							<td class="centertable">
-								<div>和式</div>
-								<hr>
-								<div>{{checkD}}</div>
-							</td>
-							<td class="centertable">
-								<div>ウォシュレット</div>
-								<hr>
-								<div>{{checkD}}</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="centertable">
-								<div>改札の中</div>
-								<hr>
-								<div>{{checkD}}</div>
-							</td>
-							<td class="centertable">
-								<div>多目的トイレ</div>
-								<hr>
-								<div>{{checkD}}</div>
-							</td>
-							<td class="centertable">
-								<div>オストメイト</div>
-								<hr>
-								<div>{{checkD}}</div>
-							</td>
-						</tr>
-					</table>
-					<br>
-					<!--投稿後更新をかける Pull2Refresh実装予定-->
-					<!-- 内容が長文だとレイアウトが崩れる 要修正(カードにこだわらなければ解決) -->
-					<ons-list ng-controller="ListController as list" id="list">
-						<ons-list-header>Reviews</ons-list-header>
-						<ons-list-item ons-lazy-repeat="list.delegate">
-							<ons-card style="width:100%">
-								<table>
-									<tr>
-										<td rowspan="2">
-											<img src="img/test.jpg" alt="test" title="umeda" width="45dp">
-										</td>
-										<td style="textalign:left;">ユーザー名</td>
-									</tr>
-									<tr>
-										<td style="textalign:left;">レビュー内容ほげえaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa{{item}}</td>
-									</tr>
-								</table>
-							</ons-card>
-						</ons-list-item>
-					</ons-list>
-			</ons-card>
-		</ons-page>
-	</ons-template>
-
-	<!-- トイレの基本設定? -->
-	<ons-template id='toiletsettings.html'>
-		<ons-page ng-controller="SettingsController as set">
-			<ons-toolbar>
-				<div class="left">
-					<ons-back-button>Back</ons-back-button>
-				</div>
-				<div class="center">ToiletSettings</div>
-			</ons-toolbar>
-			
-			<ons-fab position="bottom right" modifier="mini">
-				<ons-icon icon="md-plus" ng-click="saveSettings()"></ons-icon>
-			</ons-fab>
-
-			<ons-card>
-				<label style="text-align:left;">トイレの名前</label><br>
-				<ons-input id="placename" modifier="underbar" placeholder="トイレ名" float ng-model="page.username"></ons-input>
-			</ons-card>
-			<ons-card>
-				<label style="text-align:left;">others</label><br>
-				<ons-input id="placename" modifier="underbar" placeholder="unknown" float ng-model="page.username"></ons-input>
-			</ons-card>
-		</ons-page>
-	</ons-template>
-
-	<!--総合評価ポップアップ-->
-	<ons-popover direction="up" var="popover" cancelable="true">
-		<div style="padding: 10px; text-align: center;">
-			<p>
-				評価内訳
-			</p>
+	<ons-toolbar>
+		<div class="left">
+			<ons-back-button onclick="popPage()">Back</ons-back-button>
 		</div>
-	</ons-popover>
+		<div class="center">詳細</div>
+		<div class="right">
+			<ons-toolbar-button>
+				<ons-icon icon="ion-edit, material:md-edit" ng-click="toiletPush()"></ons-icon>
+			</ons-toolbar-button>
+		</div>
+	</ons-toolbar>
+	<ons-fab position="bottom right" modifier="mini">
+		<ons-icon icon="md-plus" ng-click="myModal.show()"></ons-icon>
+	</ons-fab>
+	<ons-card style="margin-right:auto">
+		<img src="img/test.jpg" alt="test" title="umeda" height="200dp">
+		<div class="title">
+			Place name
+		</div>
+		<hr>
+		<div class="content">
+			<table class="rating">
+				<tr>
+					<td class="right"><b>総合評価:</b></td>
+					<td>
+						<label ng-click="popover.show($event)">★★★★★</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="right">営業時間:</td>
+					<td>24h</td>
+				</tr>
+				<tr>
+					<td class="right">休業日:</td>
+					<td>-</td>
+				</tr>
+				<tr>
+					<td class="right">清潔度:</td>
+					<td>梅田(姉)</td>
+				</tr>
+				<tr>
+					<td class="right">混雑度:</td>
+					<td>★★★★★</td>
+				</tr>
+			</table>
 
-	<!-- レビュー投稿 -->
-	<ons-modal var="myModal" direction="up" ng-controller="ReviewController as rv" class="modal-content">
-		<ons-card>
-			<div style="text-align: center; margin-top: 30px">
-				<p>
-					<ons-input id="username" modifier="underbar" placeholder="ユーザ名" float ng-model="page.username"></ons-input>
-				</p>
-				<p>
-					<ons-input id="comment" modifier="underbar" placeholder="コメント" float ng-model="page.comment"></ons-input>
-				</p>
-				<ons-button tappable ng-click="myModal.hide()">Cancel</ons-button>
-				<ons-button tappable ng-click="saveReview();showToast()">Submit</ons-button>
+			<table border="1" class="tabb">
+				<tr>
+					<td class="centertable">
+						<div>洋式</div>
+						<hr>
+						<div>{{checkD}}</div>
+					</td>
+					<td class="centertable">
+						<div>和式</div>
+						<hr>
+						<div>{{checkD}}</div>
+					</td>
+					<td class="centertable">
+						<div>ウォシュレット</div>
+						<hr>
+						<div>{{checkD}}</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="centertable">
+						<div>改札の中</div>
+						<hr>
+						<div>{{checkD}}</div>
+					</td>
+					<td class="centertable">
+						<div>多目的トイレ</div>
+						<hr>
+						<div>{{checkD}}</div>
+					</td>
+					<td class="centertable">
+						<div>オストメイト</div>
+						<hr>
+						<div>{{checkD}}</div>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<!--投稿後更新をかける Pull2Refresh実装予定-->
+			<!-- 内容が長文だとレイアウトが崩れる 要修正(カードにこだわらなければ解決) -->
+			<ons-list ng-controller="ListController as list" id="list">
+				<ons-list-header>Reviews</ons-list-header>
+				<ons-list-item ons-lazy-repeat="list.delegate">
+					<ons-card style="width:100%">
+						<table>
+							<tr>
+								<td rowspan="2">
+									<img src="img/test.jpg" alt="test" title="umeda" width="45dp">
+								</td>
+								<td style="textalign:left;">ユーザー名</td>
+							</tr>
+							<tr>
+								<td style="textalign:left;">レビュー内容ほげえaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa{{item}}</td>
+							</tr>
+						</table>
+					</ons-card>
+				</ons-list-item>
+			</ons-list>
+	</ons-card>
+</ons-page>
+
+<!-- トイレの基本設定? -->
+<ons-template id='toiletsettings.html'>
+	<ons-page ng-controller="SettingsController as set">
+		<ons-toolbar>
+			<div class="left">
+				<ons-back-button>Back</ons-back-button>
 			</div>
+			<div class="center">ToiletSettings</div>
+		</ons-toolbar>
+
+		<ons-fab position="bottom right" modifier="mini">
+			<ons-icon icon="md-plus" ng-click="saveSettings()"></ons-icon>
+		</ons-fab>
+
+		<ons-card>
+			<label style="text-align:left;">トイレの名前</label><br>
+			<ons-input id="placename" modifier="underbar" placeholder="トイレ名" float ng-model="page.username"></ons-input>
 		</ons-card>
-	</ons-modal>
+		<ons-card>
+			<label style="text-align:left;">others</label><br>
+			<ons-input id="placename" modifier="underbar" placeholder="unknown" float ng-model="page.username"></ons-input>
+		</ons-card>
+	</ons-page>
+</ons-template>
 
-	<!-- submitした時にjsのshowToast()から呼び出されるtoast-->
-	<!-- レビュー取り消し等も要るかも -->
-	<!-- toastはiPhoneだとfabbuttonがズレてくれなくて重なってしまう 要改善 -->
-	<ons-toast var="toast" style="margin-right:10vw;position:fixed">
-		投稿しました<button ng-click="toast.hide()">HIDE</button>
-	</ons-toast>
+<!--総合評価ポップアップ-->
+<ons-popover direction="up" var="popover" cancelable="true">
+	<div style="padding: 10px; text-align: center;">
+		<p>
+			評価内訳
+		</p>
+	</div>
+</ons-popover>
 
-	<ons-toast var="toast2" style="margin-right:10vw;position:fixed">
-		トイレ情報を変更しました<button ng-click="toast.hide()">HIDE</button>
-	</ons-toast>
-	
-</body>
+<!-- レビュー投稿 -->
+<ons-modal var="myModal" direction="up" ng-controller="ReviewController as rv" class="modal-content">
+	<ons-card>
+		<div style="text-align: center; margin-top: 30px">
+			<p>
+				<ons-input id="username" modifier="underbar" placeholder="ユーザ名" float ng-model="page.username"></ons-input>
+			</p>
+			<p>
+				<ons-input id="comment" modifier="underbar" placeholder="コメント" float ng-model="page.comment"></ons-input>
+			</p>
+			<ons-button tappable ng-click="myModal.hide()">Cancel</ons-button>
+			<ons-button tappable ng-click="saveReview();showToast()">Submit</ons-button>
+		</div>
+	</ons-card>
+</ons-modal>
 
-</html>
+<!-- submitした時にjsのshowToast()から呼び出されるtoast-->
+<!-- レビュー取り消し等も要るかも -->
+<!-- toastはiPhoneだとfabbuttonがズレてくれなくて重なってしまう 要改善 -->
+<ons-toast var="toast" style="position:fixed">
+	投稿しました<button ng-click="toast.hide()">HIDE</button>
+</ons-toast>
+
+<ons-toast var="toast2" style="position:fixed">
+	トイレ情報を変更しました<button ng-click="toast.hide()">HIDE</button>
+</ons-toast>
