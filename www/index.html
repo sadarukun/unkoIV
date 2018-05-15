@@ -33,7 +33,7 @@
 	<script src="js/MUSIC.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVy1My4f64VyFUBXlgtzw1Wp1-T9eSj4E"></script>
-	<ons-splitter ng-controller="AppController as app" var="splitter">
+     <ons-splitter ng-controller="AppController as app" var="splitter">
 		<ons-splitter-side side="left" width="220px" collapse swipeable>
 			<ons-page>
 				<ons-list>
@@ -84,6 +84,7 @@
 			</ons-toolbar>
 			<!--画面に初手から地図を表示-->
 			<div id="map_canvas" style="width:100%; height:100%"></div>
+               <ons-button modifier="material" style="bottom" ng-click="detailPush()">Button</ons-button>
 		</ons-page>
 	</ons-template>
 

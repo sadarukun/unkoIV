@@ -7,6 +7,9 @@ module.controller('AppController', function ($scope) {
                     initialize()
                })
      }
+     $scope.detailPush = function(){
+     $scope.navi.pushPage("detail.html")
+}
 });
 
 function initialize() {
