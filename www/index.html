@@ -12,11 +12,11 @@
 	<link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
 	<link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="css/style2.css">
 
 
 
 	<script>
-
 	</script>
 </head>
 
@@ -34,22 +34,20 @@
 	<script src="js/MUSIC.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVy1My4f64VyFUBXlgtzw1Wp1-T9eSj4E"></script>
-
-	<ng-include src="'detail.html'"></ng-include>
 	<ons-navigator var="navi" page="splitter.html"></ons-navigator>
 	<ons-template id="splitter.html">
 		<ons-page>
 			<ons-splitter ng-controller="AppController as app" var="splitter">
-				<ons-splitter-side side="left" width="220px" collapse swipeable swipe-target-width="300px">
+				<ons-splitter-side side="left" width="220px" collapse swipeable swipe-target-width="30px">
 					<ons-page>
 						<ons-list>
-							<ons-list-item ng-click="app.load('home.html')" tappable>
+							<ons-list-item ng-click="app.load('home.html')" tappable class="nico">
 								トイレはどこ？
 							</ons-list-item>
-							<ons-list-item ng-click="app.load('settings.html')" tappable>
+							<ons-list-item ng-click="app.load('settings.html')" tappable class="nico">
 								ログイン
 							</ons-list-item>
-							<ons-list-item ng-click="app.load('about.html')" tappable>
+							<ons-list-item ng-click="app.load('about.html')" tappable class="nico">
 								せってい
 							</ons-list-item>
 						</ons-list>
@@ -68,7 +66,7 @@
 						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center">
+				<div class="center nico">
 					トイレログ
 				</div>
 				<div class="right">
@@ -92,6 +90,7 @@
 			</ons-toolbar>
 			<!--画面に初手から地図を表示-->
 			<div id="map_canvas" style="width:100%; height:100%"></div>
+               <div id="map"></div>
 			<ons-fab position="bottom left" modifier="mini">
 				<ons-icon icon="md-plus" onclick="navi.pushPage('detail.html')"></ons-icon>
 			</ons-fab>
@@ -99,14 +98,14 @@
 	</ons-template>
 
 	<ons-template id="settings.html">
-		<ons-page>
+		<ons-page >
 			<ons-toolbar>
 				<div class="left">
 					<ons-toolbar-button ng-click="splitter.left.open()">
 						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center">
+				<div class="center nico">
 					ログイン
 				</div>
 			</ons-toolbar>
@@ -147,7 +146,7 @@
 						<ons-icon icon="md-menu"></ons-icon>
 					</ons-toolbar-button>
 				</div>
-				<div class="center">
+				<div class="center nico">
 					せってい
 				</div>
 			</ons-toolbar>
@@ -155,7 +154,6 @@
 		</ons-page>
 	</ons-template>
 	<!-- ファイアベースのやつやん -->
-	<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
 	<script>
 		// Initialize Firebase
   var config = {
